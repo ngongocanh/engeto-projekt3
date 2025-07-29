@@ -72,14 +72,16 @@ def parse_vysledky_obce(obec_kod, obec_name, url):
 
     # 2) Výsledky stran
     tables = soup.find_all("table")
-    for table in tables[2:]:
-        for row in table.find_all("tr"):
-            cols = row.find_all("td")
-            if len(cols) >= 3:
-                strana = cols[1].get_text(strip=True)
-                hlasy = cols[2].get_text(strip=True).replace('\xa0', '').replace('\u00a0', '').replace(' ', '')
-                if strana:
-                    vysledky[strana] = hlasy
+    for table in soup.find_all("table"):
+        header_cells = table.find_all("th")
+        if any("Strana" in th.get_text() for th in header_cells):
+            for row in table.find_all("tr"):
+                cols = row.find_all("td")
+                if len(cols) >= 3:
+                    strana = cols[1].get_text(strip=True)
+                    hlasy = cols[2].get_text(strip=True).replace('\xa0', '').replace('\u00a0', '').replace(' ', '')
+                    if strana:
+                        vysledky[strana] = hlasy
 
     return vysledky
 
