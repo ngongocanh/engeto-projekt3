@@ -4,13 +4,13 @@ main.py: třetí projekt do Engeto Online Python Akademie
 author: Ngoc Anh Ngo
 email: annie@ngongocanh.com
 """
-# import knihoven
 
 import sys
-import requests
-from bs4 import BeautifulSoup
 import csv
 import re
+
+import requests
+from bs4 import BeautifulSoup
 
 # základní URL pro načítání dat
 
@@ -89,9 +89,7 @@ def parse_vysledky_obce(obec_kod, obec_name, url):
 
 def main():
     if len(sys.argv) != 3:
-        print("❌ Chyba: Zadej 2 argumenty — (1) odkaz na okres, (2) název výstupního souboru.")
-        print("Např: python main.py \"https://...\" \"vysledky.csv\"")
-        return
+        return None
 
     url = sys.argv[1]
     output_file = sys.argv[2]
